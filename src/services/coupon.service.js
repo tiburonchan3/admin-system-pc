@@ -34,12 +34,14 @@ export class CouponService extends TokenService {
     return response.json();
   }
   async deleteCoupon(id) {
-    const response = await fetch(`${API_HOST}/categoria/${id}`, {
+    const query = {id}
+    const response = await fetch(`${API_HOST}/cupon/destroy-cupon`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
         token: `Bearer:${this.getToken()}`,
       },
+      body:JSON.stringify(query)
     });
     return response.json();
   }

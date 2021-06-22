@@ -20,7 +20,7 @@ const CheckPassword = (props) => {
         return;
       }
       if (!res.ok) {
-        toast.error("Lod datos ingresados son invalidos!");
+        toast.error("Los datos ingresados son invalidos!");
         return;
       }
     });

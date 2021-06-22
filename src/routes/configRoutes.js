@@ -10,6 +10,7 @@ import Users from "../pages/Users";
 import Account from "../pages/Account";
 import Employee from "../pages/Employee";
 import Sales from "../pages/Sales";
+import Reports from "../pages/Reports";
 
 export default [
   {
@@ -56,6 +57,11 @@ export default [
     path:'/sales',
     exact:true,
     page:Sales
+  },
+  {
+    path:'/reports',
+    exact:true,
+    page:Reports,
   },
   {
     path: "/",

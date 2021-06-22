@@ -4,33 +4,12 @@ import TDComponent from "../global/tables/TDComponent";
 import THComponent from "../global/tables/THComponent";
 import Warn from "../../assets/warn.svg";
 import moment from "moment";
-import { CouponService } from "../../services/coupon.service";
-import { toast } from "react-toastify";
 import {confirmAlert} from 'react-confirm-alert';
 import DeleteAction from "../global/DeleteAction";
 
 const Table = ({ coupons,setReload }) => {
   const ctx = useAuth();
   const { auth } = ctx;
-  const couponService = new CouponService();
-  const change = (cp) => {
-    if (new Date(cp.fechaExp) < Date.now()) {
-      toast.warn("este cupon ah expirado");
-      return;
-    }
-    const query = {
-      id: cp.id,
-    };
-    couponService.changeStatus(query).then((res) => {
-      if (res.ok === true) {
-        setReload(true)
-        return;
-      } else {
-        toast.error("No se pudo completar la accion");
-        return;
-      }
-    });
-  };
   const deleteCoupon = (id) => {
     confirmAlert({
       customUI: ({ onClose }) => {
@@ -77,11 +56,10 @@ const Table = ({ coupons,setReload }) => {
                       <div className="relative">
                         <input
                           type="checkbox"
-                          readOnly={new Date(cp.fechaExp) < Date.now()}
+                          readOnly
                           checked={cp.status === 1 ? true : false}
                           className="hidden"
                           value={cp.status}
-                          onChange={() => change(cp)}
                         />
                         <div className="toggle__line w-10 h-4 bg-gray-300 rounded-full shadow-inner"></div>
                         <div

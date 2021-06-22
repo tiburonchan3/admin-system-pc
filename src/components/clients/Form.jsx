@@ -2,9 +2,10 @@ import React from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { CouponService } from "../../services/coupon.service";
+import { toast } from "react-toastify";
 
-const Form = ({user}) => {
-    const couponService = new CouponService()
+const Form = ({ user }) => {
+  const couponService = new CouponService();
   const formik = useFormik({
     initialValues: defaultValues(user),
     validationSchema: Yup.object({
@@ -14,10 +15,14 @@ const Form = ({user}) => {
       cupon: Yup.string().required("El cupon es requerido"),
     }),
     onSubmit: (values) => {
-        console.log(values)
-      couponService.shareCoupon(values).then(res=>{
-          console.log(res)
-      })
+      couponService.shareCoupon(values).then((res) => {
+        toast.error("Hola")
+        if (!res.ok) {
+          toast.error(res.message);
+          return;
+        }
+        toast.success(res.message);
+      });
     },
   });
   return (

@@ -68,7 +68,7 @@ const Table = (props) => {
             </tr>
           </thead>
           <tbody>
-            {products?.map((product, index) => (
+            {products &&  products.map((product, index) => (
               <tr key={index}>
                 <TDComponent
                   name={product.id}

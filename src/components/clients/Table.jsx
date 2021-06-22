@@ -31,8 +31,8 @@ const Table = ({ users, showModal, setShowModal }) => {
                   <TDComponent
                     name={user.client.nombre + " " + user.client.apellido}
                   />
-                  <TDComponent name={user.client.telefono} />
-                  <TDComponent name={user.client.direccion} />
+                  <TDComponent name={user?.telefono} />
+                  <TDComponent name={user?.direccion} />
                   <TDComponent>
                     <label className="flex items-center">
                       <div className="relative">
@@ -60,7 +60,7 @@ const Table = ({ users, showModal, setShowModal }) => {
                     name={user.ordenes > 0 ? user.ordenes : "Sin compras"}
                   />
                   <TDComponent>
-                    {user.ordenes > 0 && (
+                    {user.ordenes > 0 && user.client.id !== 1 && (
                       <button
                         onClick={() => send(user.client)}
                         className="bg-global px-4 rounded text-white py-1 whitespace-nowrap"
