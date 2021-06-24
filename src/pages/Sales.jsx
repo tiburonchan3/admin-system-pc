@@ -3,6 +3,7 @@ import Layout from "../layout/Layout";
 import { OrderService } from "../services/order.service";
 import Table from "../components/sales/Table";
 import io from "socket.io-client";
+import {toast} from "react-toastify"
 
 const Sales = () => {
   const [orders, setOrders] = useState();
@@ -17,26 +18,26 @@ const Sales = () => {
   socket.on("connect", () => {
     console.log("Servidor Connectado");
   });
-  socket.on("ordenes", (data) => {
-    setReload(data.ok);
+  socket.on("reload", () => {
+    setReload(true)
   });
-  socket.on("disconnect", () => {
-    console.log("Servidor Desconectado");
-  });
+  socket.on("disconnect",() =>{
+    console.log("Servidor desconectado");
+  })
   const getOrders = () => {
-    /* orderService.getOrders().then(res=>{
+     orderService.getOrders().then(res=>{
+       console.log(res)
             if(res.ok){
                 setOrders(res.ordenes)
-                console.log(res.ordenes)
             }
-        })*/
-    setsum(sum + 1);
-    setReload(false)
+        })
+     setReload(false)
   };
   useEffect(() => {
-    return getOrders();
+   getOrders();
+    return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reload]);
+  }, [reload,orders]);
   return (
     <Layout>
       <div className="container mx-auto px-4 sm:px-8">
@@ -53,7 +54,6 @@ const Sales = () => {
               Agregar
             </button>
             <Table orders={orders} />
-            <p>Contador con un socket: {sum}</p>
           </div>
         </div>
       </div>

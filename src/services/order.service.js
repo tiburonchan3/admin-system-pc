@@ -9,7 +9,9 @@ export class OrderService extends TokenService {
     return response.json()
   }
   async filterDates(){
-    const response = await fetch(`${API_HOST}/orden`);
+    const response = await fetch(`${API_HOST}/orden/orders`,{
+       headers: { token: `Bearer:${this.getToken()}` },
+    });
     return response.json()
   }
 }

@@ -22,6 +22,7 @@ export class TokenService {
     }
     if (this.isExpiredToken(token)) {
       this.logout();
+      return null;
     }
     return jwtDecode(token);
   }

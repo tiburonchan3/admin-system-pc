@@ -8,7 +8,7 @@ const Home = () => {
   const ordService = new OrderService()
   const [sales, setSales] = useState()
   const getOrders = ()=>{
-    ordService.filterDates().then(res=>{setSales(res.ordenes)})
+    ordService.filterDates().then(res=>{setSales(res.orders)})
   }
   useEffect(() => {
     return getOrders()

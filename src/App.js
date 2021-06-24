@@ -8,7 +8,7 @@ import authContext from "./hooks/authContext";
 import AuthRoutes from "./routes/authRoutes";
 const App = () => {
   const tkService = new TokenService();
-  const [auth, setAuth] = useState();
+  const [auth, setAuth] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [loadUser, setLoadUser] = useState(false);
   const [refreshCheckLogin, setRefreshCheckLogin] = useState(false);
