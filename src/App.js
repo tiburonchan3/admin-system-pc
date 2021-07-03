@@ -5,7 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./App.scss";
 import { TokenService } from "./services/token.service";
 import authContext from "./hooks/authContext";
-import AuthRoutes from "./routes/authRoutes";
+import AuthRoutes from "./routes/authRoutes"; 
 const App = () => {
   const tkService = new TokenService();
   const [auth, setAuth] = useState(null);
@@ -26,7 +26,7 @@ const App = () => {
     () => ({
       auth,
       setUser,
-      setRefreshCheckLogin
+      setRefreshCheckLogin,
     }),
     [auth]
   );

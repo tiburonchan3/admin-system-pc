@@ -16,7 +16,6 @@ const Form = ({ user }) => {
     }),
     onSubmit: (values) => {
       couponService.shareCoupon(values).then((res) => {
-        toast.error("Hola")
         if (!res.ok) {
           toast.error(res.message);
           return;

@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const NavbarOptions = () => {
+  const ctx = useAuth();
+  const { auth } = ctx;
   return (
     <>
       <ul>
@@ -49,16 +52,20 @@ const NavbarOptions = () => {
             Reportes
           </li>
         </Link>
-        <Link to="/users">
-          <li className="text-white text-sm font-semibold p-3 cursor-pointer">
-            Usuarios
-          </li>
-        </Link>
-        <Link to="/employee">
-          <li className="text-white text-sm font-semibold p-3 cursor-pointer">
-            Empleados
-          </li>
-        </Link>
+        {auth.role === "admin" && (
+          <>
+            <Link to="/users">
+              <li className="text-white text-sm font-semibold p-3 cursor-pointer">
+                Usuarios
+              </li>
+            </Link>
+            <Link to="/employee">
+              <li className="text-white text-sm font-semibold p-3 cursor-pointer">
+                Empleados
+              </li>
+            </Link>
+          </>
+        )}
         <Link to="/account">
           <li className="text-white text-sm font-semibold p-3 cursor-pointer">
             Mi cuenta

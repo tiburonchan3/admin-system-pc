@@ -46,13 +46,13 @@ export class CouponService extends TokenService {
     return response.json();
   }
   async shareCoupon(body) {
-    const response = await fetch(`${API_HOST}/cupon/share-cupon`, {
+    const response = await fetch(`${API_HOST}/cupon/share-cupon?CODIGO_CUPON=${body.cupon}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         token: `Bearer:${this.getToken()}`
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(body.email),
     });
     return response.json();
   }

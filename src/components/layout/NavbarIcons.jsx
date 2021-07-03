@@ -23,6 +23,7 @@ import { TokenService } from "../../services/token.service";
 const NavbarIcons = ({ openMenu, setOpenMenu }) => {
   const tkService = new TokenService();
   const ctx = useAuth();
+  const { auth } = ctx;
   const loggoutUser = () => {
     tkService.logout();
     ctx.setRefreshCheckLogin(true);
@@ -94,16 +95,26 @@ const NavbarIcons = ({ openMenu, setOpenMenu }) => {
             <FontAwesomeIcon className="text-white text-lg" icon={faFilePdf} />
           </li>
         </Link>
-        <Link to="/users">
-          <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
-            <FontAwesomeIcon className="text-white text-lg" icon={faUsers} />
-          </li>
-        </Link>
-        <Link to="/employee">
-          <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
-            <FontAwesomeIcon className="text-white text-lg" icon={faUserTie} />
-          </li>
-        </Link>
+        {auth.role === "admin" && (
+          <>
+            <Link to="/users">
+              <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
+                <FontAwesomeIcon
+                  className="text-white text-lg"
+                  icon={faUsers}
+                />
+              </li>
+            </Link>
+            <Link to="/employee">
+              <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
+                <FontAwesomeIcon
+                  className="text-white text-lg"
+                  icon={faUserTie}
+                />
+              </li>
+            </Link>
+          </>
+        )}
         <Link to="/account">
           <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
             <FontAwesomeIcon
