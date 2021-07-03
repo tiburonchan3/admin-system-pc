@@ -18,17 +18,23 @@ const Table = (props) => {
   const [showDetail, setShowDetail] = useState(false);
   const productService = new ProductService();
   const { auth } = useAuth();
-  const change = (id) => {
+  const change = (product) => {
     const query = {
-      id,
+      id: product.id,
     };
-    productService.changeStatus(query).then((res) => {
-      if (res.ok) {
-        setReload(true);
+    if (product.catidad_por_unidad >= 2) {
+      productService.changeStatus(query).then((res) => {
+        if (res.ok) {
+          setReload(true);
+          return;
+        }
+        toast.error(res.message);
         return;
-      }
-      toast.error(res.message);
-    });
+      });
+    }else{
+      toast.warning("No puedes cambiar de estado!!! Solo queda un producto en inventario")
+    }
+    
   };
 
   const detail = (product) => {
@@ -62,69 +68,73 @@ const Table = (props) => {
               <THComponent name="ID" />
               <THComponent name="Nombre" />
               <THComponent name="Codigo" />
-              <THComponent name="Estado" />
               <THComponent name="Imagen" />
+              <THComponent name="Stock" />
+              <THComponent name="Estado" />
               <THComponent name="Acciones" />
             </tr>
           </thead>
           <tbody>
-            {products &&  products.map((product, index) => (
-              <tr key={index}>
-                <TDComponent
-                  name={product.id}
-                  onclick={() => detail(product)}
-                  cursor="cursor-pointer"
-                />
-                <TDComponent
-                  name={product.nombreProducto}
-                  onclick={() => detail(product)}
-                  cursor="cursor-pointer"
-                />
-                <TDComponent name={product.codigo_Producto} />
-                <TDComponent>
-                  <img src={productService.showImage(product.image)} alt="" />
-                </TDComponent>
-                <TDComponent>
-                  <label className="flex items-center cursor-pointer">
-                    <div className="relative">
-                      <input
-                        type="checkbox"
-                        checked={product.status === 1 ? true : false}
-                        className="hidden"
-                        onChange={() => change(product.id)}
-                        value={product.status}
-                      />
-                      <div className="toggle__line w-10 h-4 bg-gray-300 rounded-full shadow-inner"></div>
-                      <div
-                        className={
-                          "toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0 " +
-                          (product.status && "toggle__dot_active bg-green-400")
-                        }
-                      ></div>
-                    </div>
-                    <div className="ml-3 text-gray-700 font-medium">
-                      {product.status ? "Activo" : "Inactivo"}
-                    </div>
-                  </label>
-                </TDComponent>
-                <TDComponent>
-                  <button
-                    onClick={() => edit(product)}
-                    className="bg-global p-2 text-xs w-20 rounded mr-4 text-white font-semibold"
-                  >
-                    Editar
-                  </button>
-                  {auth.role === "admin" && (
+            {products &&
+              products.map((product, index) => (
+                <tr key={index}>
+                  <TDComponent
+                    name={product.id}
+                    onclick={() => detail(product)}
+                    cursor="cursor-pointer"
+                  />
+                  <TDComponent
+                    name={product.nombreProducto}
+                    onclick={() => detail(product)}
+                    cursor="cursor-pointer"
+                  />
+                  <TDComponent name={product.codigo_Producto} />
+                  <TDComponent>
+                    <img src={productService.showImage(product.image)} alt="" />
+                  </TDComponent>
+                  <TDComponent name={product.catidad_por_unidad} />
+                  <TDComponent>
+                    <label className="flex items-center cursor-pointer">
+                      <div className="relative">
+                        <input
+                          type="checkbox"
+                          checked={product.status === 1 ? true : false}
+                          className="hidden"
+                          onChange={() => change(product)}
+                          value={product.status}
+                        />
+                        <div className="toggle__line w-10 h-4 bg-gray-300 rounded-full shadow-inner"></div>
+                        <div
+                          className={
+                            "toggle__dot absolute w-6 h-6 bg-white rounded-full shadow inset-y-0 left-0 " +
+                            (product.status &&
+                              "toggle__dot_active bg-green-400")
+                          }
+                        ></div>
+                      </div>
+                      <div className="ml-3 text-gray-700 font-medium">
+                        {product.status ? "Activo" : "Inactivo"}
+                      </div>
+                    </label>
+                  </TDComponent>
+                  <TDComponent>
                     <button
-                      onClick={() => deleteProduct(product.id)}
-                      className="bg-red-400 p-2 text-xs w-20 rounded text-white font-semibold"
+                      onClick={() => edit(product)}
+                      className="bg-global p-2 text-xs w-20 rounded mr-4 text-white font-semibold"
                     >
-                      Eliminar
+                      Editar
                     </button>
-                  )}
-                </TDComponent>
-              </tr>
-            ))}
+                    {auth.role === "admin" && (
+                      <button
+                        onClick={() => deleteProduct(product.id)}
+                        className="bg-red-400 p-2 text-xs w-20 rounded text-white font-semibold"
+                      >
+                        Eliminar
+                      </button>
+                    )}
+                  </TDComponent>
+                </tr>
+              ))}
           </tbody>
         </table>
         {/* DetailModal */}

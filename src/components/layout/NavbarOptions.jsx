@@ -58,6 +58,11 @@ const NavbarOptions = () => {
             Ventas
           </li>
         </Link>
+        <Link to="/reports">
+          <li className="text-white text-sm font-semibold p-3 cursor-pointer">
+            Reportes
+          </li>
+        </Link>
         <Link to="/users">
           <li className="text-white text-sm font-semibold p-3 cursor-pointer">
             Usuarios

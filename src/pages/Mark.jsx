@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import Modal from "../components/global/modal/Modal";
 import Pagination from "../components/global/Pagination";
 import Form from "../components/mark/Form";
@@ -36,7 +37,7 @@ const Mark = ({ showModal, setShowModal }) => {
         range(1, res.totalPages);
       })
       .catch(() => {
-        console.log("error");
+        toast.error("Ah ocurrido un error inesperado")
       });
   };
   useEffect(() => {

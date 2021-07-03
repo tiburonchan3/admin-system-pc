@@ -7,6 +7,7 @@ import DeleteAction from "../global/DeleteAction";
 import Modal from "../global/modal/Modal";
 import Form from "./Form";
 import useAuth from "../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Table = (props) => {
   const { auth } = useAuth();
@@ -23,7 +24,7 @@ const Table = (props) => {
         setReload(true);
         id = 0;
       } else {
-        console.log("error al editar datos!");
+        toast.error("Error en los datos")
       }
     });
   };

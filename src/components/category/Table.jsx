@@ -7,6 +7,7 @@ import Form from "./Form";
 import { CategoryService } from "../../services/category.service";
 import { confirmAlert } from "react-confirm-alert";
 import useAuth from "../../hooks/useAuth";
+import { toast } from "react-toastify";
 
 const Table = ({ categories, setReload }) => {
   const { auth } = useAuth();
@@ -22,7 +23,7 @@ const Table = ({ categories, setReload }) => {
         setReload(true);
         id = 0;
       } else {
-        console.log("error al editar datos!");
+        toast.error("Error en los datos")
       }
     });
   };

@@ -1,7 +1,7 @@
 export const filterDates = (mo, sales) => {
   const year = new Date();
   const yr = year.getFullYear();
-  const initial = `${yr}-${mo}-02`;
+  const initial = `${yr}-${mo}-01`;
   const final = `${yr}-${mo + 1}-01`;
   const dti = new Date(initial);
   const dtf = new Date(final);
@@ -9,7 +9,7 @@ export const filterDates = (mo, sales) => {
     sales &&
     sales.filter(
       (sale) =>
-        new Date(sale.fecha_Orden) >= dti && new Date(sale.fecha_Orden) <= dtf
+        new Date(sale.fecha_Orden) >= dti && new Date(sale.fecha_Orden) < dtf
     );
   return salesfilter;
 };

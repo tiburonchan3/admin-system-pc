@@ -3,41 +3,67 @@ import Layout from "../layout/Layout";
 import { OrderService } from "../services/order.service";
 import Table from "../components/sales/Table";
 import io from "socket.io-client";
-import {toast} from "react-toastify"
+import Pagination from "../components/global/Pagination";
+import Modal from "../components/global/modal/Modal";
+import Form from "../components/sales/Form";
 
-const Sales = () => {
+const Sales = ({ showModal, setShowModal }) => {
   const [orders, setOrders] = useState();
   const [reload, setReload] = useState(false);
-  const [sum, setsum] = useState(0);
+  const [rangePag, setRangePag] = useState(null);
+  const [pagination, setPagination] = useState({
+    nextPage: 0,
+    prevPage: 0,
+    currentPage: 0,
+    totalPages: 0,
+  });
+  const range = (start, end, length = end - start + 1) => {
+    setRangePag(Array.from({ length }, (_, i) => start + i));
+  };
   const orderService = new OrderService();
-  const serverURL = "localhost:5000/";
+  const serverURL = "https://systempcs.herokuapp.com";
   const socket = io(serverURL, {
     withCredentials: true,
   });
 
-  socket.on("connect", () => {
-    console.log("Servidor Connectado");
-  });
-  socket.on("reload", () => {
-    setReload(true)
-  });
-  socket.on("disconnect",() =>{
-    console.log("Servidor desconectado");
-  })
-  const getOrders = () => {
-     orderService.getOrders().then(res=>{
-       console.log(res)
-            if(res.ok){
-                setOrders(res.ordenes)
-            }
-        })
-     setReload(false)
+  const getOrders = (page = 1) => {
+    orderService.getOrders(page).then((res) => {
+      if (res.ok) {
+        setOrders(res.ordenes);
+        setPagination({
+          nextPage: res.nextPage,
+          prevPage: res.prevPage,
+          currentPage: res.currentPage,
+          totalPages: res.totalPages,
+        });
+        range(1, res.totalPages);
+      }
+    });
+    setReload(false);
   };
+
   useEffect(() => {
-   getOrders();
-    return;
+    socket.on("connect", () => {
+      console.log("server connected");
+    });
+    socket.on("reload", () => {
+      getOrders();
+    });
+    return () => {
+      socket.on("disconnect", () => {
+        console.log("server disconnected");
+      });
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [reload,orders]);
+  }, []);
+
+  useEffect(() => {
+    return getOrders(
+      pagination.currentPage || pagination.nextPage || 1
+    );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [reload]);
+
   return (
     <Layout>
       <div className="container mx-auto px-4 sm:px-8">
@@ -46,14 +72,27 @@ const Sales = () => {
             <h2 className="text-2xl font-semibold leading-tight">
               Listado de Ventas y Ordenes
             </h2>
-            <input
-              className="border p-1 rounded w-96 mt-4"
-              placeholder="Escribe para filtrar las ordenes y ventas"
-            />
-            <button className="bg-global p-2 w-28 text-center text-semibold float-right text-white rounded-md font-semibold text-xs mr-14">
+            <button
+              onClick={() => setShowModal(true)}
+              className="bg-global p-2 w-28 text-center text-semibold float-right text-white rounded-md font-semibold text-xs mr-14"
+            >
               Agregar
             </button>
-            <Table orders={orders} />
+            <Modal
+              setShowModal={setShowModal}
+              showModal={showModal}
+              title="Agregar"
+            >
+              <Form setReload={setReload} setShowModal={setShowModal}/>
+            </Modal>
+            <Table orders={orders} setReload={setReload} />
+            {pagination.totalPages && pagination.totalPages > 1 && (
+              <Pagination
+                method={getOrders}
+                pagination={pagination}
+                rangePag={rangePag}
+              />
+            )}
           </div>
         </div>
       </div>

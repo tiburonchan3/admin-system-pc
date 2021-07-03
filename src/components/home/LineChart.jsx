@@ -44,7 +44,6 @@ const LineChart = ({ sales }) => {
       noviembre:noviembre?.length,
       diciembre:diciembre?.length
     });
-    console.log("Mayo: ", mayo, " ", "Junio: ", junio);
   };
   useEffect(() => {
     return filterDatesPerMonth();

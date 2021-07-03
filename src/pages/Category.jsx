@@ -6,6 +6,7 @@ import { CategoryService } from "../services/category.service";
 import Modal from "../components/global/modal/Modal";
 import Form from "../components/category/Form";
 import Pagination from "../components/global/Pagination";
+import { toast } from "react-toastify";
 
 const Category = ({ showModal, setShowModal }) => {
   const categoryService = new CategoryService();
@@ -35,7 +36,7 @@ const Category = ({ showModal, setShowModal }) => {
         range(1, res.totalPages);
       })
       .catch(() => {
-        console.log("error");
+        toast.error("Ah ocurrido un error inesperado")
       });
   };
   useEffect(() => {

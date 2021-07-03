@@ -3,10 +3,12 @@ import "./styles/home.styles.scss";
 import LineChart from "../components/home/LineChart";
 import Layout from "../layout/Layout";
 import { OrderService } from "../services/order.service";
+import useAuth from "../hooks/useAuth";
 
 const Home = () => {
   const ordService = new OrderService()
   const [sales, setSales] = useState()
+  const ctx = useAuth()
   const getOrders = ()=>{
     ordService.filterDates().then(res=>{setSales(res.orders)})
   }
@@ -15,9 +17,13 @@ const Home = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   return (
-    <Layout>
+    <>
+    {typeof ctx.auth === "undefined" && <p>Cargando...</p>}
+     <Layout>
       <LineChart sales={sales} />
     </Layout>
+    </>
+   
   );
 };
 

@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React from "react";
 import { ProductService } from "../../services/product.service";
 import Barcode from 'react-barcode';
 

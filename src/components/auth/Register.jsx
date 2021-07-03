@@ -4,8 +4,8 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { EmployeeService } from "../../services/employe.service";
 
-const Register = ({setexistUser}) => {
-  const emplService = new EmployeeService()
+const Register = ({ setexistUser }) => {
+  const emplService = new EmployeeService();
   const inputCode = useRef();
   const [codeVal, setCodeVal] = useState({
     value: "",
@@ -20,9 +20,9 @@ const Register = ({setexistUser}) => {
   const submit = (values) => {
     if (!codeVal.error) {
       const newValues = { ...values, code: codeVal.value };
-      emplService.register(newValues).then(res=>{
-        setexistUser(true)
-      })
+      emplService.register(newValues).then((res) => {
+        setexistUser(true);
+      });
     } else {
       setCodeVal({ ...codeVal, message: "Este campo es obligatorio" });
     }
@@ -38,9 +38,9 @@ const Register = ({setexistUser}) => {
           .min(8, "La contraseña debe contener al menos 8 caracteres")
           .required("La contraseña es requerida"),
         repeatPassword: Yup.string()
-          .oneOf([
-            Yup.ref("password"),null],
-            "Las contraseñas deben ser iguales",
+          .oneOf(
+            [Yup.ref("password"), null],
+            "Las contraseñas deben ser iguales"
           )
           .required("Debes confirmar tu contraseña"),
       })}
@@ -48,7 +48,9 @@ const Register = ({setexistUser}) => {
       {({ errors, touched }) => (
         <Form>
           <div className="login-container grid w-72 md:p-2 p-5 mr-8 md:mt-16">
-            <p className="text-gray-100 font-semibold text-md uppercase">Crea una cuenta nueva!</p>
+            <p className="text-gray-100 font-semibold text-md uppercase">
+              Crea una cuenta nueva!
+            </p>
             <div className="flex flex-col p-1 mt-1 ml-3 md:ml-0">
               <label className="text-xs text-gray-300">Nombre</label>
               <Field
@@ -114,6 +116,7 @@ const Register = ({setexistUser}) => {
             <div className="flex flex-col p-1 mt-1 ml-3 md:ml-0">
               <label className="text-xs text-gray-300">Password</label>
               <Field
+                type="password"
                 name="password"
                 placeholder="Ingresa tu contraseña"
                 className={
@@ -134,6 +137,7 @@ const Register = ({setexistUser}) => {
             <div className="flex flex-col p-1 mt-1 ml-3 md:ml-0">
               <label className="text-xs text-gray-300">Repeat Password</label>
               <Field
+                type="password"
                 name="repeatPassword"
                 placeholder="Repite tu contraseña"
                 className={
@@ -155,7 +159,7 @@ const Register = ({setexistUser}) => {
               type="submit"
               className="md:mt-6 mt-2  ml-2 md:ml-0 md:w-6/12 w-full login-button rounded-md text-sm md:text-md p-1 font-semibold text-white"
             >
-             Registrar
+              Registrar
             </button>
           </div>
         </Form>

@@ -11,6 +11,7 @@ import Account from "../pages/Account";
 import Employee from "../pages/Employee";
 import Sales from "../pages/Sales";
 import Reports from "../pages/Reports";
+import SaleDetails from "../pages/SaleDetails";
 
 export default [
   {
@@ -62,6 +63,11 @@ export default [
     path:'/reports',
     exact:true,
     page:Reports,
+  },
+  {
+    path: "/sale/:id",
+    exact: true,
+    page: SaleDetails,
   },
   {
     path: "/",

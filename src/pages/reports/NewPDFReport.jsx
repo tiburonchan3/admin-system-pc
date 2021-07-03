@@ -147,7 +147,7 @@ const NewPDFReport = ({ sales, option, show }) => {
             </View>
           </View>
           {filteredSales &&
-            filteredSales.map((sale, index) => (
+            filteredSales?.map((sale, index) => (
               <View key={index} style={styles.tableRow}>
                 <View style={styles.tableCol}>
                   <Text style={styles.tableCell}>

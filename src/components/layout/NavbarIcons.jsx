@@ -14,6 +14,7 @@ import {
   faUsers,
   faUserTie,
   faChartBar,
+  faFilePdf,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
@@ -86,6 +87,11 @@ const NavbarIcons = ({ openMenu, setOpenMenu }) => {
         <Link to="/sales">
           <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
             <FontAwesomeIcon className="text-white text-lg" icon={faChartBar} />
+          </li>
+        </Link>
+        <Link to="/reports">
+          <li className="p-3 justify-center content-center flex border-b cursor-pointer border-solid">
+            <FontAwesomeIcon className="text-white text-lg" icon={faFilePdf} />
           </li>
         </Link>
         <Link to="/users">

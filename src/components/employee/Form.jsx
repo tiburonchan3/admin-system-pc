@@ -36,7 +36,7 @@ const Form = ({setReload,setShowModal}) => {
             }
             toast.error(res.msj)
         }).catch(()=>{
-            console.log("error")
+            toast.error("Error inesperado")
         })
       } else {
         setCodeVal({ ...codeVal, message: "Este campo es obligatorio" });

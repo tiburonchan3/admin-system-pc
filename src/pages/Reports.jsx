@@ -14,7 +14,7 @@ const Reports = () => {
   useEffect(() => {
     const getOrders = () => {
       ordService.filterDates().then((res) => {
-        const completed = res.ordenes?.map((order)=>order).filter(order=>order.status !== 0);
+        const completed = res.orders?.map((order)=>order).filter(order=>order.status !== 0);
         setTotalSales(completed)
       });
     };

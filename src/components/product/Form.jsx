@@ -26,7 +26,6 @@ const Form = (props) => {
   const [imageName, setImageName] = useState(oldProduct?.image || "");
   const [product_file, setProduct_file] = useState(null);
   const inputCode = useRef(null);
-  console.log(oldProduct);
   const onChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
@@ -44,7 +43,7 @@ const Form = (props) => {
         console.log(res);
       })
       .catch(() => {
-        console.log("errror ");
+        toast.error("No se puede realizar la peticion");
       });
   };
   const addProduct = () => {

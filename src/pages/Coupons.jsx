@@ -38,7 +38,6 @@ const Coupons = ({ setShowModal, showModal }) => {
         if (new Date(cp.fechaExp) < Date.now() && cp.status === true) {
           const query = { id: cp.id };
           couponService.changeStatus(query).then((res) => {
-            console.log(res);
             if (res.ok) {
               setReload(true);
             }

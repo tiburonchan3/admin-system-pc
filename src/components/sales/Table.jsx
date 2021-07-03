@@ -2,13 +2,25 @@ import React from "react";
 import TDComponent from "../global/tables/TDComponent";
 import THComponent from "../global/tables/THComponent";
 import moment from "moment";
-import 'moment/locale/es';
+import "moment/locale/es";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faClock } from "@fortawesome/free-solid-svg-icons";
 import { faPaypal } from "@fortawesome/free-brands-svg-icons";
+import { OrderService } from "../../services/order.service";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
-const Table = ({ orders }) => {
-  console.log(orders)
+const Table = ({ orders, setReload }) => {
+  const ordService = new OrderService();
+  const changeStatus = (id) => {
+    ordService.changeStatus(id).then((res) => {
+      if (res.ok) {
+        setReload(true);
+        return;
+      }
+      toast.error("Ah ocurrido un error inesperado");
+    });
+  };
   return (
     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto mt-10">
       <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
@@ -21,14 +33,19 @@ const Table = ({ orders }) => {
               <THComponent name="Descuento" />
               <THComponent name="Total a pagar" />
               <THComponent name="Estado de la orden" />
+              <THComponent name="Acciones" />
             </tr>
           </thead>
           <tbody>
             {orders &&
               orders.map((order) => (
                 <tr key={order.id}>
-                  <TDComponent name={order.id} />
-                  <TDComponent name={moment(order.fecha_Orden).calendar()} />
+                  <TDComponent>
+                    <Link to={"/sale/" + order.id}>{order.id}</Link>
+                  </TDComponent>
+                  <TDComponent>
+                  <Link to={"/sale/" + order.id}>{moment(order.fecha_Orden).calendar()}</Link>
+                  </TDComponent>
                   <TDComponent
                     name={order.cliente.nombre + " " + order.cliente.apellido}
                   />
@@ -62,6 +79,16 @@ const Table = ({ orders }) => {
                           <span className="ml-2">Completada</span>
                         </div>
                       ))}
+                  </TDComponent>
+                  <TDComponent>
+                    {order.status === 0 && (
+                      <button
+                        onClick={() => changeStatus(order.id)}
+                        className="bg-blue-500 rounded px-4 text-white"
+                      >
+                        Completar
+                      </button>
+                    )}
                   </TDComponent>
                 </tr>
               ))}

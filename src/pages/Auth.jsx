@@ -10,7 +10,6 @@ const Auth = ({setRefreshCheckLogin}) => {
   const emplService = new EmployeeService();
   const [existUser, setexistUser] = useState();
   const checkIsExist = () => {
-    console.log(existUser);
     emplService.getUser().then((res) => {
       if (!res.empty) {
         setexistUser(true);

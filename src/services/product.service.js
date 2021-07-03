@@ -64,4 +64,8 @@ export class ProductService extends TokenService {
     });
     return response.json();
   }
+  async searchProduct(search){
+    const response = await fetch(`${API_HOST}/producto/news?search=${search}`)
+    return response.json()
+  }
 }
