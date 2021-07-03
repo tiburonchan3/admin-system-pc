@@ -5,6 +5,7 @@ import Table from "../components/employee/Table";
 import Modal from "../components/global/modal/Modal";
 import Form from "../components/employee/Form";
 import useAuth from "../hooks/useAuth";
+import Pagination from "../components/global/Pagination";
 
 const Employee = ({ showModal, setShowModal }) => {
   const [employees, setEmployees] = useState();
@@ -62,6 +63,7 @@ const Employee = ({ showModal, setShowModal }) => {
           </div>
         <div className="py-8">
           <Table employees={employees} />
+          <Pagination pagination={pagination} method={getEmployes} rangePag={rangePag} />
         </div>
       </div>
     </Layout>

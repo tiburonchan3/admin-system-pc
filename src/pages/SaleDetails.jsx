@@ -22,7 +22,6 @@ const SaleDetails = () => {
     return getOrderDetail();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
-  console.log(id);
   return (
     <Layout>
       <div className="container mx-auto px-4 sm:px-8">

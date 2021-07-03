@@ -12,7 +12,6 @@ const Account = ({ showModal, setShowModal }) => {
   console.log(auth)
   const empService = new EmployeeService();
   const [empInfo, setEmpInfo] = useState();
-  const [userImg, setUserImg] = useState();
   const [reload, setReload] = useState(false);
   useEffect(() => {
     const getEmpInfo = () => {

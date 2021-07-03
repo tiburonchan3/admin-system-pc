@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import { EmployeeService } from "../../services/employe.service";
 import { toast } from "react-toastify";
 import CheckPassword from "./CheckPassword";
-import { Link } from "react-router-dom";
 
 const Login = ({ setRefreshCheckLogin }) => {
   const [existUser, setExistUser] = useState({

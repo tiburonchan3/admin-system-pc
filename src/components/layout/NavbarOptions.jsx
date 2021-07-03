@@ -1,20 +1,6 @@
-import { createRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { createPopper } from "@popperjs/core";
 
 const NavbarOptions = () => {
-  const btnDropdownRef = createRef();
-  const popoverDropdownRef = createRef();
-  const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
-  const openDropdownPopover = () => {
-    createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
-      placement: "bottom-end",
-    });
-    setDropdownPopoverShow(true);
-  };
-  const closeDropdownPopover = () => {
-    setDropdownPopoverShow(false);
-  };
   return (
     <>
       <ul>
