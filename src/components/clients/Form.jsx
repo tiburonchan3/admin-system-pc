@@ -4,7 +4,7 @@ import * as Yup from "yup";
 import { CouponService } from "../../services/coupon.service";
 import { toast } from "react-toastify";
 
-const Form = ({ user }) => {
+const Form = ({ user,setShowModal }) => {
   const couponService = new CouponService();
   const formik = useFormik({
     initialValues: defaultValues(user),
@@ -18,9 +18,11 @@ const Form = ({ user }) => {
       couponService.shareCoupon(values).then((res) => {
         if (!res.ok) {
           toast.error(res.message);
+          setShowModal(false)
           return;
         }
         toast.success(res.message);
+        setShowModal(false)
       });
     },
   });
