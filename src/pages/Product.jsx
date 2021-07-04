@@ -9,6 +9,7 @@ import { ProviderService } from "../services/provider.service";
 import { ProductService } from "../services/product.service";
 import Table from "../components/product/Table";
 import Pagination from "../components/global/Pagination";
+import { toast } from "react-toastify";
 
 const Product = ({ showModal, setShowModal }) => {
   const [marks, setMarks] = useState(null);
@@ -33,13 +34,25 @@ const Product = ({ showModal, setShowModal }) => {
   };
   const getValues = () => {
     markService.getMarks().then((res) => {
-      setMarks(res);
+      if(res.ok){
+        setMarks(res.marca)
+        return;
+      }
+      toast.error("Ah ocurrido un error inesperado")
     });
     categoryService.getCategories().then((res) => {
-      setCategories(res);
+      if(res.ok){
+        setCategories(res.categoria);
+        return;
+      }
+      toast.error("Ah ocurrido un error inesperado")
     });
     providerService.getProviders().then((res) => {
-      setProviders(res);
+      if(res.ok){
+        setProviders(res.proveedor)
+        return;
+      }
+     toast.error("Ah ocurrido un error inesperado")
     });
   };
   const getProducts = (page = 1, search = "") => {
