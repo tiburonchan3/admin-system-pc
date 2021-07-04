@@ -75,7 +75,7 @@ const Table = ({ users, showModal, setShowModal }) => {
         </table>
       </div>
       <Modal title="Enviar cupon" showModal={showModal} setShowModal={setShowModal}>
-        <Form user={user} />
+        <Form user={user} setShowModal={setShowModal}/>
       </Modal>
     </div>
   );
