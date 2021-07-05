@@ -40,7 +40,7 @@ const Form = (props) => {
     productService
       .addImage(product_file, id)
       .then((res) => {
-        console.log(res);
+        return;
       })
       .catch(() => {
         toast.error("No se puede realizar la peticion");
@@ -50,20 +50,14 @@ const Form = (props) => {
     productService
       .addProduct(product)
       .then((res) => {
-        console.log(res);
-        if (!res.ok) {
-          if (res.error === "code") {
-            toast.warn("Ya existe un producto con este codigo");
-            return;
-          }
-          toast.error("No se puede realizar la peticion");
+        if (res.ok) {
+          addImage(res.producto.id);
+          toast.success(res.message);
+          setReload(true);
+          setShowModal(false);
           return;
         }
-
-        addImage(res.producto.id);
-        toast.success(res.msj);
-        setReload(true);
-        setShowModal(false);
+        toast.error(res.message)
       })
       .catch(() => {
         toast.error("Error en el servidor");
