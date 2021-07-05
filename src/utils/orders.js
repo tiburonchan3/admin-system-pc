@@ -2,7 +2,7 @@ export function sumItemCart(product, items) {
   const cartsItems = items;
   const fnd = cartsItems.find((a) => a.id === product.id);
   const index = cartsItems.indexOf(fnd);
-  if (product.stock >= cartsItems[index].qt) {
+  if (product.stock <= cartsItems[index].qt) {
     let invalid = false;
     return invalid;
   }
