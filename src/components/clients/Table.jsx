@@ -31,8 +31,8 @@ const Table = ({ users, showModal, setShowModal }) => {
                   <TDComponent
                     name={user.client.nombre + " " + user.client.apellido}
                   />
-                  <TDComponent name={user?.telefono} />
-                  <TDComponent name={user?.direccion} />
+                  <TDComponent name={user.client.telefono} />
+                  <TDComponent name={user.client.direccion} />
                   <TDComponent>
                     <label className="flex items-center">
                       <div className="relative">
