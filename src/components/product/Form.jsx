@@ -30,6 +30,16 @@ const Form = (props) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
   const addImage = (id) => {
+    if(oldProduct && !product_file){
+      toast.success("Se actualizo el producto con exito");
+
+          setReload(true);
+
+          setShowModal(false);
+
+          return; 
+    } 
+      
     if (!product_file) {
       toast.warn("Se guardo el registro con una imagen por defecto!!");
       return;
