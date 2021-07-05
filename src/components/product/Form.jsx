@@ -64,7 +64,7 @@ const Form = (props) => {
       .putProduct(product)
       .then((res) => {
         if (res.ok) {
-          addImage(res.producto.id);
+          addImage(product.id);
           toast.success(res.messge);
           setReload(true);
           setShowModal(false);
