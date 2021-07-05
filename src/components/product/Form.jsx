@@ -55,7 +55,7 @@ const Form = (props) => {
       .addProduct(product)
       .then((res) => {
         if (res.ok) {
-          addImage(res.producto.id);
+          addImage(res.newProduct.id);
         }
         toast.error(res.message)
       })
