@@ -8,7 +8,11 @@ export class EmployeeService extends TokenService {
   }
   async getPaginatedUser(page) {
     const response = await fetch(
-      `${API_HOST}/empleado/empleado-paginated?pagina=${page}`
+      `${API_HOST}/empleado/empleado-paginated?pagina=${page}`, {
+         headers: {
+        token: `Bearer:${this.getToken()}`,
+      },
+      } 
     );
     return response.json();
   }
