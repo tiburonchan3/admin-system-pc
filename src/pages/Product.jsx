@@ -70,7 +70,7 @@ const Product = ({ showModal, setShowModal }) => {
   useEffect(() => {
     getValues();
     setReload(false);
-    getProducts(pagination.currentPage || pagination.nextPage || 1, search);
+    getProducts(1, search);
     return;
   }, [reload || search]);
   return (
