@@ -29,13 +29,21 @@ const Form = (props) => {
   const onChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
-  const addImage = async (id) => {
+  const addImage = (id) => {
     if (!product_file) {
       toast.warn("Se guardo el registro con una imagen por defecto!!");
+      return;
     }
     productService
       .addImage(product_file, id)
       .then((res) => {
+        if(res.ok){
+          toast.success("Se guardo el producto con exito");
+          setReload(true);
+          setShowModal(false);
+          return;
+        }
+        toast.error("Ah ocurrido un error inesperado")
         return;
       })
       .catch(() => {
@@ -45,13 +53,9 @@ const Form = (props) => {
   const addProduct = () => {
     productService
       .addProduct(product)
-      .then(async (res) => {
+      .then((res) => {
         if (res.ok) {
-          await addImage(res.producto.id);
-          toast.success(res.message);
-          setReload(true);
-          setShowModal(false);
-          return;
+          addImage(res.producto.id);
         }
         toast.error(res.message)
       })
@@ -65,9 +69,6 @@ const Form = (props) => {
       .then((res) => {
         if (res.ok) {
           addImage(product.id);
-          toast.success(res.messge);
-          setReload(true);
-          setShowModal(false);
         }
       })
       .catch(() => {
