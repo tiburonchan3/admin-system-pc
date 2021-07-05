@@ -42,10 +42,10 @@ const Form = (props) => {
         toast.error("No se puede realizar la peticion");
       });
   };
-  const addProduct = async () => {
+  const addProduct = () => {
     productService
       .addProduct(product)
-      .then((res) => {
+      .then(async (res) => {
         if (res.ok) {
           await addImage(res.producto.id);
           toast.success(res.message);
