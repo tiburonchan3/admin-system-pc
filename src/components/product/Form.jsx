@@ -17,7 +17,7 @@ const Form = (props) => {
     categories,
     providers,
     oldProduct,
-    textButton
+    textButton,
   } = props;
   const [product, setProduct] = useState(values(oldProduct));
   const [product_image, setProduct_image] = useState(
@@ -50,20 +50,14 @@ const Form = (props) => {
     productService
       .addProduct(product)
       .then((res) => {
-        console.log(res);
-        if (!res.ok) {
-          if (res.error === "code") {
-            toast.warn("Ya existe un producto con este codigo");
-            return;
-          }
-          toast.error("No se puede realizar la peticion");
+        if (res.ok) {
+          addImage(res.producto.id);
+          toast.success(res.message);
+          setReload(true);
+          setShowModal(false);
           return;
         }
-
-        addImage(res.producto.id);
-        toast.success(res.msj);
-        setReload(true);
-        setShowModal(false);
+        toast.error(res.message)
       })
       .catch(() => {
         toast.error("Error en el servidor");
@@ -75,10 +69,12 @@ const Form = (props) => {
       .then((res) => {
         if (res.ok) {
           addImage(res.producto.id);
-          toast.success(res.messge);
+          toast.success(res.message);
           setReload(true);
           setShowModal(false);
+          return;
         }
+        toast.error(res.message)
       })
       .catch(() => {
         toast.error("Error en el servidor");
