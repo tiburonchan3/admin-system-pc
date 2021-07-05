@@ -29,12 +29,8 @@ const Form = (props) => {
   const onChange = (e) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
-  const addImage = (id) => {
+  const addImage = async (id) => {
     if (!product_file) {
-      if (oldProduct) {
-        // toast.success("No seleccionaste ninguna imagen");
-        return;
-      }
       toast.warn("Se guardo el registro con una imagen por defecto!!");
     }
     productService
@@ -46,12 +42,12 @@ const Form = (props) => {
         toast.error("No se puede realizar la peticion");
       });
   };
-  const addProduct = () => {
+  const addProduct = async () => {
     productService
       .addProduct(product)
       .then((res) => {
         if (res.ok) {
-          addImage(res.producto.id);
+          await addImage(res.producto.id);
           toast.success(res.message);
           setReload(true);
           setShowModal(false);
