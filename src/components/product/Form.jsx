@@ -56,6 +56,7 @@ const Form = (props) => {
       .then((res) => {
         if (res.ok) {
           addImage(res.newProduct.id);
+          return;
         }
         toast.error(res.message)
       })
@@ -69,7 +70,9 @@ const Form = (props) => {
       .then((res) => {
         if (res.ok) {
           addImage(product.id);
+          return;
         }
+      toast.error(res.message)
       })
       .catch(() => {
         toast.error("Error en el servidor");
