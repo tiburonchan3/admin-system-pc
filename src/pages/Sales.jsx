@@ -43,16 +43,12 @@ const Sales = ({ showModal, setShowModal }) => {
   };
 
   useEffect(() => {
-    socket.on("connect", () => {
-      console.log("server connected");
-    });
+    socket.on("connect", () => {});
     socket.on("reload", () => {
       getOrders();
     });
     return () => {
-      socket.on("disconnect", () => {
-        console.log("server disconnected");
-      });
+      socket.on("disconnect", () => {});
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

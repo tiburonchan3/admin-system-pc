@@ -40,7 +40,7 @@ const Category = ({ showModal, setShowModal }) => {
       });
   };
   useEffect(() => {
-    getCategories(pagination.currentPage || pagination.nextPage || 1, search);
+    getCategories(1, search);
     setReload(false);
     return;
   }, [reload || search]);

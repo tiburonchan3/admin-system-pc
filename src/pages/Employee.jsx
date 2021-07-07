@@ -37,7 +37,7 @@ const Employee = ({ showModal, setShowModal }) => {
     });
   };
   useEffect(() => {
-    return getEmployes(pagination.currentPage || pagination.nextPage || 1);
+    return getEmployes(1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reload]);
   return (

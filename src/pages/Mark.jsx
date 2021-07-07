@@ -41,7 +41,7 @@ const Mark = ({ showModal, setShowModal }) => {
       });
   };
   useEffect(() => {
-    getMarks(pagination.currentPage || pagination.nextPage || 1, search);
+    getMarks(1, search);
     setReload(false);
     return;
   }, [reload || search]);

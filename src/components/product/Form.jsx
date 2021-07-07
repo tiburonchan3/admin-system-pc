@@ -30,17 +30,31 @@ const Form = (props) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
   const addImage = (id) => {
+    if(oldProduct && !product_file){
+      toast.success("Se actualizo el producto con exito");
+
+          setReload(true);
+
+          setShowModal(false);
+
+          return; 
+    } 
+      
     if (!product_file) {
-      if (oldProduct) {
-        // toast.success("No seleccionaste ninguna imagen");
-        return;
-      }
       toast.warn("Se guardo el registro con una imagen por defecto!!");
+      return;
     }
     productService
       .addImage(product_file, id)
       .then((res) => {
-        console.log(res);
+        if(res.ok){
+          toast.success("Se guardo el producto con exito");
+          setReload(true);
+          setShowModal(false);
+          return;
+        }
+        toast.error("Ah ocurrido un error inesperado")
+        return;
       })
       .catch(() => {
         toast.error("No se puede realizar la peticion");
@@ -51,10 +65,14 @@ const Form = (props) => {
       .addProduct(product)
       .then((res) => {
         if (res.ok) {
+<<<<<<< HEAD
           addImage(res.producto.id);
           toast.success(res.message);
           setReload(true);
           setShowModal(false);
+=======
+          addImage(res.newProduct.id);
+>>>>>>> 729b6ec7312ee7614eb162b718f40a6cf4b0d373
           return;
         }
         toast.error(res.message)
@@ -68,6 +86,7 @@ const Form = (props) => {
       .putProduct(product)
       .then((res) => {
         if (res.ok) {
+<<<<<<< HEAD
           addImage(res.producto.id);
           toast.success(res.message);
           setReload(true);
@@ -75,6 +94,12 @@ const Form = (props) => {
           return;
         }
         toast.error(res.message)
+=======
+          addImage(product.id);
+          return;
+        }
+      toast.error(res.message)
+>>>>>>> 729b6ec7312ee7614eb162b718f40a6cf4b0d373
       })
       .catch(() => {
         toast.error("Error en el servidor");
