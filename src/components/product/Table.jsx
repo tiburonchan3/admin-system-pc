@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import { confirmAlert } from "react-confirm-alert";
 import DeleteAction from "../global/DeleteAction";
 import useAuth from "../../hooks/useAuth";
+import StockForm from "./StockForm";
 
 const Table = (props) => {
   const { products, setReload, marks, providers, categories } = props;
@@ -16,6 +17,8 @@ const Table = (props) => {
   const [productDetail, setProductDetail] = useState(null);
   const [product, setProduct] = useState(null);
   const [showDetail, setShowDetail] = useState(false);
+  const [showAddStock, setShowAddStock] = useState(false);
+  const [productStock, setProductStock] = useState();
   const productService = new ProductService();
   const { auth } = useAuth();
   const change = (product) => {
@@ -31,10 +34,11 @@ const Table = (props) => {
         toast.error(res.message);
         return;
       });
-    }else{
-      toast.warning("No puedes cambiar de estado!!! Solo queda un producto en inventario")
+    } else {
+      toast.warning(
+        "No puedes cambiar de estado!!!  no hay productos en inventario"
+      );
     }
-    
   };
 
   const detail = (product) => {
@@ -58,6 +62,10 @@ const Table = (props) => {
   const edit = (product) => {
     setShowModal(true);
     setProduct(product);
+  };
+  const addStock = (product) => {
+    setShowAddStock(true);
+    setProductStock(product);
   };
   return (
     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto mt-10">
@@ -124,12 +132,20 @@ const Table = (props) => {
                     >
                       Editar
                     </button>
-                    {auth.role === "admin" && (
+                    {auth.role === "admin" && product.catidad_por_unidad < 1 && (
                       <button
                         onClick={() => deleteProduct(product.id)}
                         className="bg-red-400 p-2 text-xs w-20 rounded text-white font-semibold"
                       >
                         Eliminar
+                      </button>
+                    )}
+                    {product.catidad_por_unidad < 1 && (
+                      <button
+                        onClick={() => addStock(product)}
+                        className="bg-green-500 ml-4  p-2 text-xs  rounded text-white font-semibold"
+                      >
+                        Agregar stock
                       </button>
                     )}
                   </TDComponent>
@@ -151,7 +167,7 @@ const Table = (props) => {
           />
         </Modal>
         {/* Edit Modal */}
-        <Modal setShowModal={setShowModal} showModal={showModal}>
+        <Modal setShowModal={setShowModal} showModal={showModal} title="Actualizar producto">
           <Form
             setReload={setReload}
             oldProduct={product}
@@ -161,6 +177,14 @@ const Table = (props) => {
             providers={providers}
             textButton="Actualizar"
           />
+        </Modal>
+        {/* Add to stock Modal*/}
+        <Modal
+          title="Agregar stock"
+          showModal={showAddStock}
+          setShowModal={setShowAddStock}
+        >
+          <StockForm setShowModal={setShowAddStock} idP={productStock?.id} />
         </Modal>
       </div>
     </div>

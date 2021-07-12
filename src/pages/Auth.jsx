@@ -11,7 +11,7 @@ const Auth = ({setRefreshCheckLogin}) => {
   const [existUser, setexistUser] = useState();
   const checkIsExist = () => {
     emplService.getUser().then((res) => {
-      if (!res.empty) {
+      if (res.ok) {
         setexistUser(true);
         return;
       }

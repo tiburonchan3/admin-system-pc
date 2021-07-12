@@ -1,6 +1,6 @@
 import React from "react";
 
-const TDComponent = ({ name, children,onclick,cursor }) => {
+const TDComponent = React.memo(({ name, children,onclick,cursor }) => {
   return (
     <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm w-2/5" onClick={onclick}>
       <div className="flex items-center text-center">
@@ -16,6 +16,6 @@ const TDComponent = ({ name, children,onclick,cursor }) => {
       </div>
     </td>
   );
-};
+})
 
 export default TDComponent;

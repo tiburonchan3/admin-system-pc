@@ -64,8 +64,19 @@ export class ProductService extends TokenService {
     });
     return response.json();
   }
-  async searchProduct(search){
-    const response = await fetch(`${API_HOST}/producto/news?search=${search}`)
-    return response.json()
+  async searchProduct(search) {
+    const response = await fetch(`${API_HOST}/producto/news?search=${search}`);
+    return response.json();
+  }
+  async addStockProduct(idP, values) {
+    const response = await fetch(`${API_HOST}/producto/add-stock/${idP}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        token: `Bearer:${this.getToken()}`,
+      },
+      body: JSON.stringify(values),
+    });
+    return response.json();
   }
 }

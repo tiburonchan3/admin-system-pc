@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import { ProductService } from "../../services/product.service";
 import { setItemCart } from "../../utils/orders";
 import OrderProductList from "./OrderProductList";
 import { toast } from "react-toastify";
 
-export default function Form({setReload,setShowModal}) {
+export const Form = memo(({ setReload, setShowModal }) => {
   const [prods, setProds] = useState([]);
   const [items, setItems] = useState([]);
   const [loadOrders, setLoadOrders] = useState([]);
@@ -12,27 +12,27 @@ export default function Form({setReload,setShowModal}) {
   const change = (e) => {
     const search = e.currentTarget.value;
     prdService.searchProduct(search).then((res) => {
-      const filterItem = res.productos?.filter((item)=>item.status !== false)
+      const filterItem = res.productos?.filter((item) => item.status !== false);
       setItems(filterItem);
     });
   };
   const addItem = (prd) => {
-    console.log(prd)
+    console.log(prd);
     const newPrd = {
       id: prd.id,
-      qt:1,
+      qt: 1,
       price: Number(prd.costo_standar),
       original_price: Number(prd.costo_standar),
-      stock:prd.catidad_por_unidad
+      stock: prd.catidad_por_unidad,
     };
     const Order = setItemCart(newPrd, prods);
-    console.log(Order)
-    if(!Order){
-     toast.error("Se ah agotado la existencia de este producto!!")
+    console.log(Order);
+    if (!Order) {
+      toast.error("Se ah agotado la existencia de este producto!!");
       return;
     }
     setProds(Order);
-    setLoadOrders(true)
+    setLoadOrders(true);
   };
   return (
     <div>
@@ -59,9 +59,15 @@ export default function Form({setReload,setShowModal}) {
               ))}
           </ul>
           <div className="w-full border" />
-          <OrderProductList setShowModal={setShowModal} setReload={setReload} loadOrders={loadOrders} setLoadOrders={setLoadOrders} items={prods}/>
+          <OrderProductList
+            setShowModal={setShowModal}
+            setReload={setReload}
+            loadOrders={loadOrders}
+            setLoadOrders={setLoadOrders}
+            items={prods}
+          />
         </div>
       </div>
     </div>
   );
-}
+});

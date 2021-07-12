@@ -30,16 +30,16 @@ const Form = (props) => {
     setProduct({ ...product, [e.target.name]: e.target.value });
   };
   const addImage = (id) => {
-    if(oldProduct && !product_file){
+    if (oldProduct && !product_file) {
       toast.success("Se actualizo el producto con exito");
 
-          setReload(true);
+      setReload(true);
 
-          setShowModal(false);
+      setShowModal(false);
 
-          return; 
-    } 
-      
+      return;
+    }
+
     if (!product_file) {
       toast.warn("Se guardo el registro con una imagen por defecto!!");
       return;
@@ -47,13 +47,13 @@ const Form = (props) => {
     productService
       .addImage(product_file, id)
       .then((res) => {
-        if(res.ok){
+        if (res.ok) {
           toast.success("Se guardo el producto con exito");
           setReload(true);
           setShowModal(false);
           return;
         }
-        toast.error("Ah ocurrido un error inesperado")
+        toast.error("Ah ocurrido un error inesperado");
         return;
       })
       .catch(() => {
@@ -65,17 +65,10 @@ const Form = (props) => {
       .addProduct(product)
       .then((res) => {
         if (res.ok) {
-<<<<<<< HEAD
-          addImage(res.producto.id);
-          toast.success(res.message);
-          setReload(true);
-          setShowModal(false);
-=======
           addImage(res.newProduct.id);
->>>>>>> 729b6ec7312ee7614eb162b718f40a6cf4b0d373
           return;
         }
-        toast.error(res.message)
+        toast.error(res.message);
       })
       .catch(() => {
         toast.error("Error en el servidor");
@@ -86,20 +79,10 @@ const Form = (props) => {
       .putProduct(product)
       .then((res) => {
         if (res.ok) {
-<<<<<<< HEAD
-          addImage(res.producto.id);
-          toast.success(res.message);
-          setReload(true);
-          setShowModal(false);
-          return;
-        }
-        toast.error(res.message)
-=======
           addImage(product.id);
           return;
         }
-      toast.error(res.message)
->>>>>>> 729b6ec7312ee7614eb162b718f40a6cf4b0d373
+        toast.error(res.message);
       })
       .catch(() => {
         toast.error("Error en el servidor");
@@ -213,16 +196,6 @@ const Form = (props) => {
               </select>
             </div>
             <div className="grid grid-rows-2 gap-0">
-              <label>Precio</label>
-              <input
-                className="rounded border border-solid p-1 text-sm w-auto"
-                placeholder="Escribe el nombre"
-                defaultValue={product.costo_standar}
-                name="costo_standar"
-                onChange={onChange}
-              />
-            </div>
-            <div className="grid grid-rows-2 gap-0">
               <label>Descripcion</label>
               <textarea
                 defaultValue={product.descripcion}
@@ -242,26 +215,23 @@ const Form = (props) => {
           </div>
         </div>
         <div className="w-72">
-          <div className="grid grid-rows-2 gap-0">
-            <label>Descuento</label>
-            <input
-              className="rounded border border-solid p-1 text-sm w-auto"
-              placeholder="Escribe el nombre"
-              defaultValue={product.descuento}
-              name="descuento"
-              onChange={onChange}
-            />
-          </div>
-          <div className="grid grid-rows-2 gap-0">
-            <label>Stock</label>
-            <input
-              className="rounded border border-solid p-1 text-sm w-auto"
-              placeholder="Escribe el nombre"
-              defaultValue={product.cantidad_unidad}
-              name="cantidad_unidad"
-              onChange={onChange}
-            />
-          </div>
+          {oldProduct && (
+            <div className="grid grid-rows-2 gap-0">
+              <label>Descuento</label>
+              <div className="flex">
+                <input
+                  className="w-full border p-1 px-4 text-sm rounded border-r-0 focus:outline-none focus:border"
+                  placeholder="Escribe el descuento"
+                  defaultValue={product.descuento}
+                  name="descuento"
+                  onChange={onChange}
+                />
+                <span className="border px-4 py-1 text-sm rounded absolute mr-6 bg-gray-300 font-bold right-0">
+                  %
+                </span>
+              </div>
+            </div>
+          )}
           {!oldProduct && (
             <div className="grid grid-rows-2 gap-0">
               <label>Codigo</label>
@@ -323,12 +293,10 @@ const values = (prod) => {
     codigo_producto: "" || prod?.codigo_Producto,
     nombre_producto: "" || prod?.nombreProducto,
     descripcion: "" || prod?.descripcion,
-    costo_standar: "" || prod?.costo_standar,
-    cantidad_unidad: "" || prod?.catidad_por_unidad,
-    descuento: "" || prod?.descuento,
     proveedor: "" || prod?.proveedor.id,
     marca: "" || prod?.marca.id,
     categoria: "" || prod?.categoria.id,
+    descuento: prod?.descuento || null,
     id: null || prod?.id,
   };
 };

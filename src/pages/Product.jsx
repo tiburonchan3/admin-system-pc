@@ -33,27 +33,42 @@ const Product = ({ showModal, setShowModal }) => {
     setRangePag(Array.from({ length }, (_, i) => start + i));
   };
   const getValues = () => {
-    markService.getMarks().then((res) => {
-      if(res.ok){
-        setMarks(res.marca)
-        return;
-      }
-      toast.error("Ah ocurrido un error inesperado")
-    });
-    categoryService.getCategories().then((res) => {
-      if(res.ok){
-        setCategories(res.categoria);
-        return;
-      }
-      toast.error("Ah ocurrido un error inesperado")
-    });
-    providerService.getProviders().then((res) => {
-      if(res.ok){
-        setProviders(res.proveedor)
-        return;
-      }
-     toast.error("Ah ocurrido un error inesperado")
-    });
+    markService
+      .getMarks()
+      .then((res) => {
+        if (res.ok) {
+          setMarks(res.marca);
+          return;
+        }
+        toast.warning("No hay marcas disponibles");
+      })
+      .catch(() => {
+        toast.error("Ah sucedido un error inesperado");
+      });
+    categoryService
+      .getCategories()
+      .then((res) => {
+        if (res.ok) {
+          setCategories(res.categoria);
+          return;
+        }
+        toast.warning("No hay categorias disponibles");
+      })
+      .catch(() => {
+        toast.error("Ah sucedido un error inesperado");
+      });
+    providerService
+      .getProviders()
+      .then((res) => {
+        if (res.ok) {
+          setProviders(res.proveedor);
+          return;
+        }
+        toast.warning("No hay proveedores disponibles");
+      })
+      .catch(() => {
+        toast.error("Ah sucedido un error inesperado");
+      });
   };
   const getProducts = (page = 1, search = "") => {
     productService.showProducts(page, search).then((res) => {
@@ -116,7 +131,7 @@ const Product = ({ showModal, setShowModal }) => {
             categories={categories}
             providers={providers}
           />
-         {pagination.totalPages && pagination.totalPages > 1 && (
+          {pagination.totalPages && pagination.totalPages > 1 && (
             <Pagination
               method={getProducts}
               pagination={pagination}

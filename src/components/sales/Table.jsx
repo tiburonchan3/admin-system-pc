@@ -1,4 +1,4 @@
-import React from "react";
+import { memo, useCallback } from "react";
 import TDComponent from "../global/tables/TDComponent";
 import THComponent from "../global/tables/THComponent";
 import moment from "moment";
@@ -10,9 +10,9 @@ import { OrderService } from "../../services/order.service";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 
-const Table = ({ orders, setReload }) => {
+export const Table = memo(({ orders, setReload }) => {
   const ordService = new OrderService();
-  const changeStatus = (id) => {
+  const changeStatus = useCallback((id) => {
     ordService.changeStatus(id).then((res) => {
       if (res.ok) {
         setReload(true);
@@ -20,7 +20,8 @@ const Table = ({ orders, setReload }) => {
       }
       toast.error("Ah ocurrido un error inesperado");
     });
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <div className="-mx-4 sm:-mx-8 px-4 sm:px-8 py-4 overflow-x-auto mt-10">
       <div className="inline-block min-w-full shadow rounded-lg overflow-hidden">
@@ -44,7 +45,9 @@ const Table = ({ orders, setReload }) => {
                     <Link to={"/sale/" + order.id}>{order.id}</Link>
                   </TDComponent>
                   <TDComponent>
-                  <Link to={"/sale/" + order.id}>{moment(order.fecha_Orden).calendar()}</Link>
+                    <Link to={"/sale/" + order.id}>
+                      {moment(order.fecha_Orden).calendar()}
+                    </Link>
                   </TDComponent>
                   <TDComponent
                     name={order.cliente.nombre + " " + order.cliente.apellido}
@@ -97,6 +100,5 @@ const Table = ({ orders, setReload }) => {
       </div>
     </div>
   );
-};
+});
 
-export default Table;

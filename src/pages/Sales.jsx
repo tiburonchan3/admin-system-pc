@@ -1,11 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Layout from "../layout/Layout";
 import { OrderService } from "../services/order.service";
-import Table from "../components/sales/Table";
+import { Table } from "../components/sales/Table";
 import io from "socket.io-client";
 import Pagination from "../components/global/Pagination";
 import Modal from "../components/global/modal/Modal";
-import Form from "../components/sales/Form";
+import { Form } from "../components/sales/Form";
 
 const Sales = ({ showModal, setShowModal }) => {
   const [orders, setOrders] = useState();
@@ -21,12 +21,12 @@ const Sales = ({ showModal, setShowModal }) => {
     setRangePag(Array.from({ length }, (_, i) => start + i));
   };
   const orderService = new OrderService();
-  const serverURL = "https://systempcs.herokuapp.com";
+  const serverURL = "http://localhost:5000";
   const socket = io(serverURL, {
     withCredentials: true,
   });
 
-  const getOrders = (page = 1) => {
+  const getOrders = useCallback((page = 1) => {
     orderService.getOrders(page).then((res) => {
       if (res.ok) {
         setOrders(res.ordenes);
@@ -40,7 +40,8 @@ const Sales = ({ showModal, setShowModal }) => {
       }
     });
     setReload(false);
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     socket.on("connect", () => {});
@@ -54,12 +55,9 @@ const Sales = ({ showModal, setShowModal }) => {
   }, []);
 
   useEffect(() => {
-    return getOrders(
-      pagination.currentPage || pagination.nextPage || 1
-    );
+    return getOrders(pagination.currentPage || pagination.nextPage || 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reload]);
-
   return (
     <Layout>
       <div className="container mx-auto px-4 sm:px-8">
@@ -79,7 +77,7 @@ const Sales = ({ showModal, setShowModal }) => {
               showModal={showModal}
               title="Agregar"
             >
-              <Form setReload={setReload} setShowModal={setShowModal}/>
+              <Form setReload={setReload} setShowModal={setShowModal} />
             </Modal>
             <Table orders={orders} setReload={setReload} />
             {pagination.totalPages && pagination.totalPages > 1 && (

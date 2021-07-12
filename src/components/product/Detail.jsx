@@ -56,12 +56,6 @@ const Detail = ({ product,setShowDetail }) => {
           alt="none"
           className="w-60"
         />
-        <button className="mt-20 bg-red-400 text-white p-1 px-4 rounded">
-            Eliminar
-        </button>
-        <button className="mt-20 bg-green-500 text-white p-1 px-4 rounded ml-4">
-            Desactivar
-        </button>
       </div>
     </div>
   );

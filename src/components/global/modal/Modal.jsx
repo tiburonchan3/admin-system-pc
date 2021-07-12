@@ -1,6 +1,6 @@
 import React from "react";
 
-const Modal = ({ showModal, setShowModal, children, title }) => {
+const Modal = React.memo(({ showModal, setShowModal, children, title }) => {
   return (
     <>
       {showModal ? (
@@ -34,6 +34,6 @@ const Modal = ({ showModal, setShowModal, children, title }) => {
       ) : null}
     </>
   );
-};
+});
 
 export default Modal;

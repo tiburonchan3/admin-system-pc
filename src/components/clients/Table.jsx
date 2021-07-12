@@ -60,7 +60,7 @@ const Table = ({ users, showModal, setShowModal }) => {
                     name={user.ordenes > 0 ? user.ordenes : "Sin compras"}
                   />
                   <TDComponent>
-                    {user.ordenes > 0 && user.client.id !== 1 && (
+                    {user.ordenes > 0 && user.client.estado && (
                       <button
                         onClick={() => send(user.client)}
                         className="bg-global px-4 rounded text-white py-1 whitespace-nowrap"

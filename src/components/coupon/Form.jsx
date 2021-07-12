@@ -41,7 +41,7 @@ const Form = ({setShowModal,setReload}) => {
                   : "border-gray-300")
               }
             />
-            <span className="border px-4 py-1 text-sm rounded absolute mr-6 bg-gray-400 font-bold right-0">
+            <span className="border px-4 py-1 text-sm rounded absolute mr-6 bg-gray-300 font-bold right-0">
               %
             </span>
           </div>

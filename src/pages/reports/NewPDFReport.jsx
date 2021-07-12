@@ -4,33 +4,28 @@ import {
   filterDates,
   reduceDes,
   reduceTotal,
-  setOptionTitle,
+  reduceGain,
 } from "../../utils/reducers";
 import moment from "moment";
 import "moment/locale/es";
 
-const NewPDFReport = ({ sales, option, show }) => {
+const NewPDFReport = ({ sales, initial, final, show }) => {
   const [filteredSales, setFilteredSales] = useState();
   const [descTotal, setdescTotal] = useState();
   const [total, setTotal] = useState();
-  const [title, setTitle] = useState();
-  const getFilterSales = (sales) => {
-    setTitle(setOptionTitle(Number(option)));
-    if (Number(option) !== 0) {
-      setFilteredSales(filterDates(Number(option), sales));
-      setTotal(reduceTotal(filterDates(Number(option), sales)));
-      setdescTotal(reduceDes(filterDates(Number(option), sales)));
-    } else {
-      setFilteredSales(sales);
-      setTotal(reduceTotal(sales));
-      setdescTotal(reduceDes(sales));
+  const [gain, setGain] = useState();
+  const getFilterSales = (sales, i, f) => {
+    if (i && f) {
+      setFilteredSales(filterDates(i, f, sales));
+      setTotal(reduceTotal(filterDates(i, f, sales)));
+      setdescTotal(reduceDes(filterDates(i, f, sales)));
+      setGain(reduceGain(filterDates(i, f, sales)));
     }
-    console.clear();
   };
   useEffect(() => {
-    return getFilterSales(sales);
+    return getFilterSales(sales, initial, final);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sales, show, option]);
+  }, [sales, show, initial, final]);
 
   const styles = StyleSheet.create({
     body: {
@@ -88,25 +83,38 @@ const NewPDFReport = ({ sales, option, show }) => {
       fontSize: 11,
     },
     title: {
-      fontSize: 30,
+      fontSize: 28,
       fontWeight: 600,
-      marginBottom: 20,
-      marginTop: 20,
+      marginBottom: 5,
+      marginTop: 5,
+    },
+    dates: {
+      fontSize: 14,
+      fontWeight: 500,
+      marginBottom: 5,
+      marginTop: 5,
     },
     details: {
       display: "flex",
       flexDirection: "column",
     },
-    detailView:{
-        display: "flex",
+    detailView: {
+      display: "flex",
     },
     detailTitle: {
-        fontSize:13,
+      fontSize: 13,
       fontWeight: 500,
     },
     detailContent: {
-        fontSize:12,
+      fontSize: 12,
       marginLeft: 10,
+    },
+    hr: {
+      borderStyle: "solid",
+      borderColor: "#bfbfbf",
+      borderWidth: 1,
+      width: "80%",
+      marginBottom: 20,
     },
   });
   useEffect(() => {
@@ -120,15 +128,34 @@ const NewPDFReport = ({ sales, option, show }) => {
     <Document>
       <Page style={styles.body}>
         <View style={styles.details}>
-          <Text style={styles.title}>{title}</Text>
+          <Text style={styles.title}>Reporte de ventas</Text>
+          <View style={styles.hr} />
+          <Text style={styles.dates}>
+            Fecha de inicio: {moment(initial).format("MMMM Do YYYY")}
+          </Text>
+          <Text style={styles.dates}>
+            Fecha de fin: {moment(final).format("MMMM Do YYYY")}
+          </Text>
+          <View style={styles.hr} />
           <View style={styles.detailView}>
-            <Text style={styles.detailTitle}>Ventas Totales: {filteredSales && filteredSales.length}</Text>
+            <Text style={styles.detailTitle}>
+              Ventas Totales: {filteredSales && filteredSales.length}
+            </Text>
           </View>
           <View style={styles.detailView}>
-            <Text style={styles.detailTitle}>Descuento total:  ${total && descTotal.toFixed(2)}</Text>
+            <Text style={styles.detailTitle}>
+              Descuento total: ${total && descTotal.toFixed(2)}
+            </Text>
           </View>
           <View style={styles.detailView}>
-            <Text style={styles.detailTitle}>Total Vendido: ${total && total.toFixed(2)}</Text>
+            <Text style={styles.detailTitle}>
+              Total Vendido: ${total && total.toFixed(2)}
+            </Text>
+          </View>
+          <View style={styles.detailView}>
+            <Text style={styles.detailTitle}>
+              Ganancia total: ${gain && gain.toFixed(2)}
+            </Text>
           </View>
         </View>
         <View style={styles.table}>
