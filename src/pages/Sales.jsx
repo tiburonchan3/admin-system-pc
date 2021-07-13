@@ -21,7 +21,7 @@ const Sales = ({ showModal, setShowModal }) => {
     setRangePag(Array.from({ length }, (_, i) => start + i));
   };
   const orderService = new OrderService();
-  const serverURL = "http://localhost:5000";
+  const serverURL = "https://systempcs.herokuapp.com";
   const socket = io(serverURL, {
     withCredentials: true,
   });
