@@ -2,7 +2,7 @@ import React from "react";
 import { ProductService } from "../../services/product.service";
 import Barcode from 'react-barcode';
 
-const Detail = ({ product,setShowDetail }) => {
+const Detail = ({ product }) => {
   const productService = new ProductService();
   return (
     <div className="w-full grid grid-cols-2">

@@ -1,6 +1,6 @@
 import React from "react";
 
-const Pagination = React.memo(({ method, pagination, rangePag }) => {
+const Pagination = ({ method, pagination, rangePag }) => {
   return (
     <div className="flex flex-col items-start my-6">
       <div className="flex text-gray-700">
@@ -66,6 +66,6 @@ const Pagination = React.memo(({ method, pagination, rangePag }) => {
       </div>
     </div>
   );
-})
+}
 
 export default Pagination;
