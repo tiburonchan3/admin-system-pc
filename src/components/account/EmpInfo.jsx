@@ -1,41 +1,40 @@
-import React from 'react';
+import React from "react";
 
-const EmpInfo = ({empInfo}) => {
-    return (
-        <ul>
-        <li>
-          <span>Nombre: </span>
-          {empInfo?.nombre}
+const EmpInfo = ({ empInfo }) => {
+  return (
+    <ul>
+      <li>
+        <span className="text-xl">Nombre: </span>
+        {empInfo?.nombre}
+      </li>
+      <li className="mt-4">
+        <span className="text-xl">Apellido: </span>
+        {empInfo?.apellido}
+      </li>
+      <li className="mt-4">
+        <span className="text-xl">Codigo de acceso: </span>
+        {empInfo?.codeAccess}
+      </li>
+      {empInfo?.telefono && (
+        <li className="mt-4">
+          <span className="text-xl">Telefono: </span>
+          {empInfo.telefono}
         </li>
-        <li>
-          <span>Apellido: </span>
-          {empInfo?.apellido}
+      )}
+      {empInfo?.direccion && (
+        <li className="mt-4">
+          <span className="text-xl">Direccion: </span>
+          {empInfo?.direccion}
         </li>
-        <li>
-          <span>Codigo de acceso: </span>
-          {empInfo?.codeAccess}
+      )}
+      {empInfo?.email && (
+        <li className="mt-4">
+          <span className="text-xl">Email: </span>
+          {empInfo?.email}
         </li>
-        {empInfo?.telefono && (
-          <li>
-            <span>Telefono: </span>
-            {empInfo.telefono}
-          </li>
-        )}
-        {empInfo?.direccion && (
-          <li>
-            <span>Direccion: </span>
-            {empInfo?.direccion}
-          </li>
-        )}
-         {empInfo?.email && (
-          <li>
-            <span>Email: </span>
-            {empInfo?.email}
-          </li>
-          
-        )}
-      </ul>
-    );
-}
+      )}
+    </ul>
+  );
+};
 
 export default EmpInfo;

@@ -1,5 +1,5 @@
 import React from "react";
-import "./layout.styles.scss";
+import "./layout.styles.css";
 import NavbarIcons from "../components/layout/NavbarIcons";
 import NavbarOptions from "../components/layout/NavbarOptions";
 

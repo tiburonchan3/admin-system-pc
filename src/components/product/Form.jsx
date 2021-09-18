@@ -21,7 +21,7 @@ const Form = (props) => {
   } = props;
   const [product, setProduct] = useState(values(oldProduct));
   const [product_image, setProduct_image] = useState(
-    oldProduct ? productService.showImage(oldProduct?.image) : null
+    oldProduct ? oldProduct?.image : null
   );
   const [imageName, setImageName] = useState(oldProduct?.image || "");
   const [product_file, setProduct_file] = useState(null);
@@ -260,7 +260,7 @@ const Form = (props) => {
           >
             {product?.image ? (
               <img
-                src={productService.showImage(product?.image)}
+                src={product?.image}
                 alt="none"
                 className="w-40 mt-8"
               />
@@ -272,7 +272,6 @@ const Form = (props) => {
               />
             )}
           </div>
-          <span className="mt-1 text-xs">{imageName}</span>
           <label className="w-full mt-2 p-1 flex items-center bg-white rounded-lg tracking-wide  border cursor-pointer">
             <img src={UploadIcon} alt="none" className="w-6 text-blue ml-2" />
             <span className="text-sm leading-normal ml-4 ">

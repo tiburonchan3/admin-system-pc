@@ -1,5 +1,5 @@
 import {useState,useEffect} from "react";
-import "./styles/home.styles.scss";
+import "./styles/home.styles.css";
 import LineChart from "../components/home/LineChart";
 import Layout from "../layout/Layout";
 import { OrderService } from "../services/order.service";

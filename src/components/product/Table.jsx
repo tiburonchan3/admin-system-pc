@@ -83,7 +83,7 @@ const Table = (props) => {
             </tr>
           </thead>
           <tbody>
-            {products &&
+            {products && products?.length ? (
               products.map((product, index) => (
                 <tr key={index}>
                   <TDComponent
@@ -98,7 +98,7 @@ const Table = (props) => {
                   />
                   <TDComponent name={product.codigo_Producto} />
                   <TDComponent>
-                    <img src={productService.showImage(product.image)} alt="" />
+                    <img src={product.image} alt="" />
                   </TDComponent>
                   <TDComponent name={product.catidad_por_unidad} />
                   <TDComponent>
@@ -150,7 +150,10 @@ const Table = (props) => {
                     )}
                   </TDComponent>
                 </tr>
-              ))}
+              ))
+            ) : (
+              <p className="p-5">No hay registros</p>
+            )}
           </tbody>
         </table>
         {/* DetailModal */}
@@ -167,7 +170,11 @@ const Table = (props) => {
           />
         </Modal>
         {/* Edit Modal */}
-        <Modal setShowModal={setShowModal} showModal={showModal} title="Actualizar producto">
+        <Modal
+          setShowModal={setShowModal}
+          showModal={showModal}
+          title="Actualizar producto"
+        >
           <Form
             setReload={setReload}
             oldProduct={product}

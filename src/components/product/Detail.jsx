@@ -1,9 +1,7 @@
 import React from "react";
-import { ProductService } from "../../services/product.service";
-import Barcode from 'react-barcode';
+import Barcode from "react-barcode";
 
 const Detail = ({ product }) => {
-  const productService = new ProductService();
   return (
     <div className="w-full grid grid-cols-2">
       <div className="w-96">
@@ -47,15 +45,16 @@ const Detail = ({ product }) => {
           <span className="uppercase text-md font-semibold">Codigo:</span>{" "}
         </p>
         <div className="">
-       <Barcode width={1} fontSize={13} height={65} value={product?.codigo_Producto} />
-       </div>
+          <Barcode
+            width={1}
+            fontSize={13}
+            height={65}
+            value={product?.codigo_Producto}
+          />
+        </div>
       </div>
       <div className="w-96">
-        <img
-          src={productService.showImage(product?.image)}
-          alt="none"
-          className="w-60"
-        />
+        <img src={product?.image} alt="none" className="w-60" />
       </div>
     </div>
   );

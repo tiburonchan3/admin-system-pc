@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import Layout from "../layout/Layout";
 import { OrderService } from "../services/order.service";
 import { Table } from "../components/sales/Table";
@@ -6,11 +6,14 @@ import io from "socket.io-client";
 import Pagination from "../components/global/Pagination";
 import Modal from "../components/global/modal/Modal";
 import { Form } from "../components/sales/Form";
+import { toast } from "react-toastify";
+import { SOCKET_URL } from "../utils/constant";
 
 const Sales = ({ showModal, setShowModal }) => {
   const [orders, setOrders] = useState();
   const [reload, setReload] = useState(false);
   const [rangePag, setRangePag] = useState(null);
+  const [reloadSocket, setReloadSocket] = useState(false);
   const [pagination, setPagination] = useState({
     nextPage: 0,
     prevPage: 0,
@@ -21,10 +24,33 @@ const Sales = ({ showModal, setShowModal }) => {
     setRangePag(Array.from({ length }, (_, i) => start + i));
   };
   const orderService = new OrderService();
-  const serverURL = "https://systempcs.herokuapp.com";
-  const socket = io(serverURL, {
-    withCredentials: true,
-  });
+  const serverURL = SOCKET_URL;
+  const socket = useMemo(
+    () =>
+      io.connect(serverURL, {
+        transports: ["websocket"],
+      }),
+    [serverURL]
+  );
+  useEffect(() => {
+    socket.on("connect", () => {});
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("disconnect", () => {});
+  }, [socket]);
+
+  const callSocket = useCallback(() => {
+    socket.on("reload", () => {
+      toast.success("Se registro una nueva orden");
+      setReloadSocket(true);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [socket]);
+
+  useEffect(() => {
+    return callSocket();
+  }, [callSocket]);
 
   const getOrders = useCallback((page = 1) => {
     orderService.getOrders(page).then((res) => {
@@ -44,15 +70,11 @@ const Sales = ({ showModal, setShowModal }) => {
   }, []);
 
   useEffect(() => {
-    socket.on("connect", () => {});
-    socket.on("reload", () => {
-      getOrders();
-    });
-    return () => {
-      socket.on("disconnect", () => {});
-    };
+    setReloadSocket(false);
+    getOrders();
+    return;
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [reloadSocket]);
 
   useEffect(() => {
     return getOrders(pagination.currentPage || pagination.nextPage || 1);

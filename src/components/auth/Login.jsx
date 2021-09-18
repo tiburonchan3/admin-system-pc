@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./styles/login.styles.scss";
+import "./styles/login.styles.css";
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { EmployeeService } from "../../services/employe.service";

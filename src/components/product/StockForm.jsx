@@ -41,7 +41,7 @@ const StockForm = ({ idP,setShowModal }) => {
             onChange={formik.handleChange}
             placeholder="Ingresa el stock del producto"
             className={
-              "w-80 border p-1 text-sm rounded " +
+              "w-80 border p-1 px-2 text-sm rounded " +
               (formik.errors.cantidadProducto && formik.touched.cantidadProducto
                 ? "border-red-400"
                 : "border-gray-300")
@@ -62,7 +62,7 @@ const StockForm = ({ idP,setShowModal }) => {
             onChange={formik.handleChange}
             placeholder="Ingresa el precio de compra del producto"
             className={
-              "w-80 border p-1 text-sm rounded " +
+              "w-80 border p-1 px-2 text-sm rounded " +
               (formik.errors.precioCompra && formik.touched.precioCompra
                 ? "border-red-400"
                 : "border-gray-300")
@@ -83,7 +83,7 @@ const StockForm = ({ idP,setShowModal }) => {
             onChange={formik.handleChange}
             placeholder="Ingresa la ganancia del producto"
             className={
-              "border p-1 px-4 text-sm rounded border-r-0 focus:outline-none focus:border w-full " +
+              "border p-1 px-2 text-sm rounded border-r-0 focus:outline-none focus:border w-full " +
               (formik.errors.beneficio && formik.touched.beneficio
                 ? "border-red-400"
                 : "border-gray-300")
@@ -101,7 +101,7 @@ const StockForm = ({ idP,setShowModal }) => {
         </div>
         <button
           type="submit"
-          className="bg-global mt-4 text-white rounded px-12 py-1 text-sm"
+          className="bg-global mt-4 text-white w-full rounded px-12 py-1 text-sm"
         >
           Agregar
         </button>

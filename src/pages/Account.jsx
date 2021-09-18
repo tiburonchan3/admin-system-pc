@@ -33,9 +33,6 @@ const Account = ({ showModal, setShowModal }) => {
     <Layout>
       <p className="mx-8 text-3xl font-light">Mi cuenta</p>
       <div className="my-8 mx-8 shadow p-8 w-full rounded flex">
-        <div>
-        <EmpImage empInfo={empInfo} empService={empService} />
-        </div>
         <div className="w-7/12 ml-12">
           <EmpInfo empInfo={empInfo}/>
           <div className="mt-4">

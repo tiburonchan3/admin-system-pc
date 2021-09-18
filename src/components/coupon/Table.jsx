@@ -38,7 +38,7 @@ const Table = ({ coupons,setReload }) => {
             </tr>
           </thead>
           <tbody>
-            {coupons &&
+            {coupons && coupons.length ?
               coupons.map((cp, _) => (
                 <tr key={cp.id}>
                   <TDComponent name={cp.codigo} />
@@ -85,7 +85,7 @@ const Table = ({ coupons,setReload }) => {
                     )}
                   </TDComponent>
                 </tr>
-              ))}
+              )) : <p className="p-5">No hay registros disponibles</p>}
           </tbody>
         </table>
       </div>

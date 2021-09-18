@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import Routing from "./routes/routes";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import "./App.scss";
+import "./App.css";
 import { TokenService } from "./services/token.service";
 import authContext from "./hooks/authContext";
 import AuthRoutes from "./routes/authRoutes"; 

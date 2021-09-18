@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Login from "../components/auth/Login";
 import SVGFirst from "../assets/one.svg";
 import SVGWave from "../assets/wavev4.svg";
-import "./styles/auth.styles.scss";
+import "./styles/auth.styles.css";
 import Register from "../components/auth/Register";
 import { EmployeeService } from "../services/employe.service";
 
