@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import EditForm from "../components/account/EditForm";
-import EmpImage from "../components/account/EmpImage";
 import EmpInfo from "../components/account/EmpInfo";
 import Modal from "../components/global/modal/Modal";
 import useAuth from "../hooks/useAuth";

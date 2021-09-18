@@ -23,7 +23,6 @@ const Form = (props) => {
   const [product_image, setProduct_image] = useState(
     oldProduct ? oldProduct?.image : null
   );
-  const [imageName, setImageName] = useState(oldProduct?.image || "");
   const [product_file, setProduct_file] = useState(null);
   const inputCode = useRef(null);
   const onChange = (e) => {
@@ -110,17 +109,14 @@ const Form = (props) => {
     console.log(file);
     setProduct_image(URL.createObjectURL(file));
     setProduct_file(file);
-    setImageName(file.name);
   });
-  const {
-    getRootProps: getRootImgProps,
-    getInputProps: getInputImgProps,
-  } = useDropzone({
-    accept: "image/jpeg, image/png",
-    noKeyboard: true,
-    multiple: false,
-    onDrop: onDropImage,
-  });
+  const { getRootProps: getRootImgProps, getInputProps: getInputImgProps } =
+    useDropzone({
+      accept: "image/jpeg, image/png",
+      noKeyboard: true,
+      multiple: false,
+      onDrop: onDropImage,
+    });
   return (
     <form onSubmit={onSubmit}>
       <input
@@ -259,11 +255,7 @@ const Form = (props) => {
             {...getRootImgProps()}
           >
             {product?.image ? (
-              <img
-                src={product?.image}
-                alt="none"
-                className="w-40 mt-8"
-              />
+              <img src={product?.image} alt="none" className="w-40 mt-8" />
             ) : (
               <img
                 src={product_image ? product_image : ProductImg}
