@@ -9,7 +9,7 @@ const NavbarOptions = () => {
       <ul>
         <Link to="/">
           <li className="text-white text-md font-bold p-3 cursor-pointer">
-            SYSTEM PC
+          M&E Soporte Tecnico
           </li>
         </Link>
         <Link to="/">
