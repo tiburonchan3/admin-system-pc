@@ -102,7 +102,7 @@ const Sales = ({ showModal, setShowModal }) => {
               <Form setReload={setReload} setShowModal={setShowModal} />
             </Modal>
             <Table orders={orders} setReload={setReload} />
-            {pagination.totalPages && pagination.totalPages > 1 && (
+            {pagination?.totalPages > 1 && (
               <Pagination
                 method={getOrders}
                 pagination={pagination}

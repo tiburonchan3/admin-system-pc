@@ -131,7 +131,7 @@ const Product = ({ showModal, setShowModal }) => {
             categories={categories}
             providers={providers}
           />
-          {pagination.totalPages && pagination.totalPages > 1 && (
+          {pagination?.totalPages > 1 && (
             <Pagination
               method={getProducts}
               pagination={pagination}

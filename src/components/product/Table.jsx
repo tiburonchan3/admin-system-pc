@@ -83,7 +83,7 @@ const Table = (props) => {
             </tr>
           </thead>
           <tbody>
-            {products && products?.length ? (
+            {products && products?.length > 0 ? (
               products.map((product, index) => (
                 <tr key={index}>
                   <TDComponent

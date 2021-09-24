@@ -68,7 +68,7 @@ const Provider = ({ setShowModal, showModal }) => {
             </Modal>
           </div>
           <Table setReload={setReload} providers={providers} />
-          {pagination.totalPages && pagination.totalPages > 1 && (
+          {pagination?.totalPages > 1 && (
             <Pagination
               method={getProviders}
               pagination={pagination}

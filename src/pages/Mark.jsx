@@ -73,7 +73,7 @@ const Mark = ({ showModal, setShowModal }) => {
             </Modal>
           </div>
           <Table marks={marks} setReload={setReload} />
-          {pagination.totalPages && pagination.totalPages > 1 && (
+          {pagination?.totalPages > 1 && (
             <Pagination
               method={getMarks}
               pagination={pagination}

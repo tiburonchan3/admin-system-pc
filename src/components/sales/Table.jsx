@@ -38,7 +38,7 @@ export const Table = memo(({ orders, setReload }) => {
             </tr>
           </thead>
           <tbody>
-            {orders &&
+            {orders && orders.length > 0 ? (
               orders.map((order) => (
                 <tr key={order.id}>
                   <TDComponent>
@@ -94,11 +94,13 @@ export const Table = memo(({ orders, setReload }) => {
                     )}
                   </TDComponent>
                 </tr>
-              ))}
+              ))
+            ) : (
+              <p className="p-5">No hay registros para mostrar</p>
+            )}
           </tbody>
         </table>
       </div>
     </div>
   );
 });
-

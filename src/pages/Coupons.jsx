@@ -78,7 +78,7 @@ const Coupons = ({ setShowModal, showModal }) => {
             </Modal>
           </div>
           <Table coupons={coupons} setReload={setReload} />
-          {pagination.totalPages && pagination.totalPages > 1 && (
+          {pagination?.totalPages > 1 && (
             <Pagination
               method={getPaginatedCoupons}
               pagination={pagination}
